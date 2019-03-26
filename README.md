@@ -73,13 +73,21 @@ sudo systemctl restart nginx
 ## Install the remaining services:
 `
 sudo apt-get install logstash
+
 sudo apt-get install filebeat
+
 sudo apt-get install auditbeat
+
 sudo apt-get install metricbeat
+
 sudo filebeat modules enable elasticsearch logstash kibana system
+
 sudo metricbeat modules enable elasticsearch logstash kibana
+
 cd /usr/share/elasticsearch
+
 sudo bin/elasticsearch-plugin install ingest-geoip
+
 sudo bin/elasticsearch-plugin install ingest-user-agent
 `
 
