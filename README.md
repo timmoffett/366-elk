@@ -35,16 +35,16 @@ sudo apt-get install kibana
 ## Settin up Nginx:
 Run the following command replacing bracketed [] text with your own values.
 
-``
+```
 echo "[insert username]:`openssl passwd -apr1`" | sudo tee -a /etc/nginx/htpasswd.users
 sudo vim /etc/nginx/sites-available/[your domain]
-``
+```
 
 You will need to add the following code block into "/etc/nginx/sites-available/[your domain]",
 dont forget to replace [] text with your own values:
 
-`
-    server {
+```
+server {
     listen 80;
 
     server_name [example.com];
@@ -61,7 +61,7 @@ dont forget to replace [] text with your own values:
         proxy_cache_bypass $http_upgrade;
         }
     }
-`
+```
 
 Run the following command to create a link from sites enable to sites available and restart Nginx:
 
@@ -71,7 +71,7 @@ sudo systemctl restart nginx
 `
 
 ## Install the remaining services:
-`
+```
     sudo apt-get install logstash
     sudo apt-get install filebeat
     sudo apt-get install auditbeat
@@ -81,7 +81,7 @@ sudo systemctl restart nginx
     cd /usr/share/elasticsearch
     sudo bin/elasticsearch-plugin install ingest-geoip
     sudo bin/elasticsearch-plugin install ingest-user-agent
-`
+```
 
 ## Config files
 All of the config files need to be copied from this repository into their respectful places
@@ -93,62 +93,62 @@ e.g. /etc/kibana/kibana.yml
 Place files in the conf.d folder into /etc/logstash/conf.d/
 
 * You can also pull them all as a repository down into a single folder and link them using
-`
+```
 ln -s [path of file] [path where it belongs]
-`
+```
 This would allow you to use a repo to manage the code easily as all you would have to do is pull any updates
 and not worry about moving the files to where they belong.
 
 ## Install Templates and Dashboards
 
 ### Start Elastic Stack:
-`
+```
 sudo systemctl start elasticsearch logstash kibana
-`
+```
 
 ### Install templates and dashboards:
 The first threee steps will install templates to logstash.
 
-`
+```
 sudo filebeat setup --template -E output.logstash.enabled=false -E output.elasticsearch.enabled=true -E 'output.elasticsearch.hosts=["localhost:9200"]'
 sudo metricbeat setup --template -E output.logstash.enabled=false -E output.elasticsearch.enabled=true -E 'output.elasticsearch.hosts=["localhost:9200"]'
 sudo auditbeat setup --template -E output.logstash.enabled=false -E output.elasticsearch.enabled=true -E 'output.elasticsearch.hosts=["localhost:9200"]'
-`
+```
 
 The next three commands will set the dashboards up on Kibana
 
-`
+```
 sudo filebeat setup --dashboards
 sudo metricbeat setup --dashboards
 sudo auditbeat setup --dashboards
-`
+```
 
 ## Start Beats
 To start your beats run the following command.
-`
+```
 sudo systemctl start filebeat metricbeat auditbeat
-`
+```
 
 To make them all persistent run:
-`
+```
 sudo systemctl enable elasticsearch logstash kibana filebeat metricbeat logstash
-`
+```
 
 ## Troubleshooting
 ### General
 If you run into any prolems while setting this up you can use the journalctl command as follows:
-`
+```
 journalctl -u [name of service]
 
 e.g.
 journalctl -u nginx.service
-`
+```
 
 ### Beats
 If you run into prolems with any of the beats you can also use the "-e" flag
-`
+```
 e.g. filebeat -e
-`
+```
 Which will output the logs to the console.
 
 ### Common problems
