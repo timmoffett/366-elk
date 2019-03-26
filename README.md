@@ -9,6 +9,7 @@ sudo apt-get update && sudo apt-get upgrade
 
 ### JDK
 If you don't have JDK you will need to install it.
+
 `
 sudo apt-get install default-jdk
 `
@@ -27,14 +28,17 @@ sudo apt-get install elasticsearch
 `
 
 ### Install kibana:
+`
 sudo apt-get install kibana
+`
 
 ## Settin up Nginx:
 Run the following command replacing bracketed [] text with your own values.
-`
+
+``
 echo "[insert username]:`openssl passwd -apr1`" | sudo tee -a /etc/nginx/htpasswd.users
 sudo vim /etc/nginx/sites-available/[your domain]
-`
+``
 
 You will need to add the following code block into "/etc/nginx/sites-available/[your domain]",
 dont forget to replace [] text with your own values:
