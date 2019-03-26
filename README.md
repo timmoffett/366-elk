@@ -44,7 +44,7 @@ You will need to add the following code block into "/etc/nginx/sites-available/[
 dont forget to replace [] text with your own values:
 
 `
-server {
+    server {
     listen 80;
 
     server_name [example.com];
@@ -72,23 +72,15 @@ sudo systemctl restart nginx
 
 ## Install the remaining services:
 `
-sudo apt-get install logstash
-
-sudo apt-get install filebeat
-
-sudo apt-get install auditbeat
-
-sudo apt-get install metricbeat
-
-sudo filebeat modules enable elasticsearch logstash kibana system
-
-sudo metricbeat modules enable elasticsearch logstash kibana
-
-cd /usr/share/elasticsearch
-
-sudo bin/elasticsearch-plugin install ingest-geoip
-
-sudo bin/elasticsearch-plugin install ingest-user-agent
+    sudo apt-get install logstash
+    sudo apt-get install filebeat
+    sudo apt-get install auditbeat
+    sudo apt-get install metricbeat
+    sudo filebeat modules enable elasticsearch logstash kibana system
+    sudo metricbeat modules enable elasticsearch logstash kibana
+    cd /usr/share/elasticsearch
+    sudo bin/elasticsearch-plugin install ingest-geoip
+    sudo bin/elasticsearch-plugin install ingest-user-agent
 `
 
 ## Config files
@@ -116,6 +108,7 @@ sudo systemctl start elasticsearch logstash kibana
 
 ### Install templates and dashboards:
 The first threee steps will install templates to logstash.
+
 `
 sudo filebeat setup --template -E output.logstash.enabled=false -E output.elasticsearch.enabled=true -E 'output.elasticsearch.hosts=["localhost:9200"]'
 sudo metricbeat setup --template -E output.logstash.enabled=false -E output.elasticsearch.enabled=true -E 'output.elasticsearch.hosts=["localhost:9200"]'
@@ -123,6 +116,7 @@ sudo auditbeat setup --template -E output.logstash.enabled=false -E output.elast
 `
 
 The next three commands will set the dashboards up on Kibana
+
 `
 sudo filebeat setup --dashboards
 sudo metricbeat setup --dashboards
