@@ -77,7 +77,6 @@ sudo systemctl restart nginx
 
 ## Install the remaining services:
 ```
-    sudo apt-get install logstash
     sudo apt-get install filebeat
     sudo apt-get install auditbeat
     sudo apt-get install metricbeat
