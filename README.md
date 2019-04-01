@@ -20,14 +20,19 @@ sudo apt-get install nginx
 `
 
 ### Elasticsearch:
-`
+```
 wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
 echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
 sudo apt-get update
 sudo apt-get install elasticsearch
-`
+```
 
-### Install kibana:
+#### Logstash:
+```
+sudo apt install logstash
+```
+
+### Kibana:
 `
 sudo apt-get install kibana
 `
